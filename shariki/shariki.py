@@ -143,9 +143,25 @@ def displayScore():
     screen.blit(textsurface, (200, 300))
 
 
+def sort_col(i):
+    return int(i[0])
+
+
 def writeScore():
-    with open('test.txt', 'a') as myfile:
-        myfile.write(str(name) + '   ' + str(int(score)) + "\n")
+    # Read existing table
+    output = open("test.txt", 'r+')
+    file = output.readlines()
+    # Add new result
+    file.append(str(int(score)) + " " + name + '\n')
+    for i in range(len(file)):
+        file[i] = file[i].split()
+    file.sort(key=sort_col, reverse=True)
+
+    # Rewrite results
+    output.seek(0)
+    for i in range(len(file)):
+        output.write(str(file[i][0])+ " " + file[i][1] + "\n")
+    output.close()
 
 
 pygame.display.update()

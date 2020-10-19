@@ -1,6 +1,4 @@
-Table of results:
-
-Chukinson   123
-alex   85
-gera   115
-gera   101
+123 ger
+29 wafr
+5 sanya
+4 hello
