@@ -3,7 +3,7 @@ from random import randint as rand
 import random
 pygame.init()
 
-'''Needed to work with text'''
+# Needed to work with text
 pygame.font.init()
 myfont = pygame.font.SysFont('Comic Sans MS', 30)
 
@@ -13,33 +13,39 @@ X=1000
 Y=700
 existance = 1
 FPS = 30
-timer = 60. #game duration
-time = 0. #current playtime
+# game duration
+timer = 60.
+# current playtime
+time = 0.
 score = 0.
 screen = pygame.display.set_mode((X, Y))
 
 
-'''generates a random colour'''
+# generates a random colour
 def color():
     clr = []
     for i in range(3):
         clr.append(rand(0, 253))
     return clr
 
-#some colors
+
+# some colors
 black = (0, 0, 0)
 white = (255, 255, 255)
 
-
+# picture
 old = pygame.image.load('oldy.png')
 
-
+# starting parameters of "old" target
 ox = rand(0, X - 50)
 oy = rand(0, Y-50)
 status = 0
 ovx = rand(-36, 36)
 ovy = (36**2 - ovx**2)**0.5 * random.choice((-1, 1))
 ptime = 0.
+
+
+# "old" target moving
 def Old():
     global ox, oy, status, ovx, ovy, ptime, existance
     if existance:
@@ -59,7 +65,7 @@ def Old():
         screen.blit(old, (ox, oy))
     
 
-'''creates a new ball with random cordinates x, y and speed vx, vy'''
+# creates a new ball with random cordinates x, y and speed vx, vy'''
 def new_ball():
     global x, y, r, vx, vy, colour
     r = rand(10, 100)
@@ -71,14 +77,13 @@ def new_ball():
     pygame.draw.circle(screen, colour, (x, y), r)
     
 
-'''draws a ball from list of balls, which is initialized later'''
+# draws a ball from list of balls, which is initialized later
 def ball():
     pygame.draw.circle(screen, balls[i][5], (balls[i][0], balls[i][1]), \
     balls[i][2])
     
 
-'''checks if we hit a target, modifies time and score, score depends on 
-   target's speed and size'''
+# checks if we hit a target, modifies time and score, score depends on target's speed and size
 def click(event):
     global time, score, existance, ox, oy
     res = 0
@@ -98,12 +103,13 @@ def click(event):
         time += 5
     else:
         time -= 4
-        
-#list of balls     
+
+
+# list of balls
 balls = []
 
 
-#filling a list with tuples that contain info about each ball
+# filling a list with tuples that contain info about each ball
 for i in range(8):
     new_ball()
     balls.append(tuple((x, y, r, vx, vy, colour)))
@@ -130,10 +136,12 @@ def displayInfo():
     screen.blit(textsurface, (500, 50))
 
 
+# shows score
 def displayScore():
     textsurface = myfont.render('You lost. Your score is ' + 
     str(int(score)), False, black)
-    screen.blit(textsurface,(200,300))
+    screen.blit(textsurface, (200, 300))
+
 
 def writeScore():
     with open('test.txt', 'a') as myfile:
@@ -164,4 +172,3 @@ while not finished:
 writeScore()
     
 pygame.quit()
-    

@@ -2,3 +2,5 @@ Table of results:
 
 Chukinson   123
 alex   85
+gera   115
+gera   101
